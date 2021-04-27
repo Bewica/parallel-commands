@@ -1,0 +1,16 @@
+name: test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@v2
+      - name: Hello world action step
+        id: hello
+        uses: bewica/parallel-commands@v0.3
+        with:
+          commands: "echo hello, sleep 1; echo by"
