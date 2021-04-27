@@ -16,4 +16,6 @@ jobs:
             echo hello \
               this is a test,
             sleep 3; echo bye,
-            sleep 1; echo exiting; exit 0
+            sleep 1; echo exiting; exit 0,
+            mkdir -p test/apple; cd test/apple; echo $PWD,
+            mkdir -p test2/pear; cd test2/pear; echo $PWD,
