@@ -10,7 +10,7 @@ jobs:
     steps:
       # - uses: actions/checkout@v2
       - name: Parallel command tests
-        uses: bewica/parallel-commands@v0.6
+        uses: bewica/parallel-commands@v0.7
         with:
           commands: |
             echo hello \
