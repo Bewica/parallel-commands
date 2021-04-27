@@ -11,6 +11,6 @@ jobs:
       # - uses: actions/checkout@v2
       - name: Hello world action step
         id: hello
-        uses: bewica/parallel-commands@v0.3
+        uses: bewica/parallel-commands@v0.4
         with:
           commands: "echo hello, sleep 1; echo by"
