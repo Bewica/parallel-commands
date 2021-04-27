@@ -480,10 +480,11 @@ const run = (cmd, onError) => {
     });
 }
 
-// in case they pass commands "array-formatted": [c1, c2, ...]
-const reBrackets = (new RegExp(`\[*\]*`)).compile();
 const commands = core.getInput('commands');
-const cmds = commands.replace(reBrackets, "").split(",").map((s) => s.trim());
+const cmds = commands
+    .trim().replace(/^\[+/, "").replace(/\]+$/, "")
+    .split(",")
+    .map((s) => s.trim()).filter((s) => s)
 for (const cmd of cmds) {
     run(cmd, core.setFailed);
 }
