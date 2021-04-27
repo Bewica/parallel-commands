@@ -9,8 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v2
-      - name: Hello world action step
-        id: hello
+      - name: Parallel command tests
         uses: bewica/parallel-commands@v0.6
         with:
-          commands: "echo hello, sleep 3; echo bye, sleep 1; echo exiting; exit 123"
+          commands: |
+            echo hello \
+              this is a test,
+            sleep 3; echo bye,
+            sleep 1; echo exiting; exit 0
