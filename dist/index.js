@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 30:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
+"use strict";
 
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
@@ -90,6 +90,7 @@ function escapeProperty(s) {
 /***/ 87:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
+"use strict";
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -335,6 +336,7 @@ exports.getState = getState;
 /***/ 607:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
+"use strict";
 
 // For internal use, subject to change.
 var __importStar = (this && this.__importStar) || function (mod) {
@@ -370,6 +372,7 @@ exports.issueCommand = issueCommand;
 /***/ 158:
 /***/ ((__unused_webpack_module, exports) => {
 
+"use strict";
 
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -395,6 +398,7 @@ exports.toCommandValue = toCommandValue;
 /***/ 129:
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("child_process");;
 
 /***/ }),
@@ -402,6 +406,7 @@ module.exports = require("child_process");;
 /***/ 747:
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("fs");;
 
 /***/ }),
@@ -409,6 +414,7 @@ module.exports = require("fs");;
 /***/ 365:
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("os");;
 
 /***/ }),
@@ -416,6 +422,7 @@ module.exports = require("os");;
 /***/ 622:
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("path");;
 
 /***/ })
@@ -453,71 +460,32 @@ module.exports = require("path");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nccwpck_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__nccwpck_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(87);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-
+const core = __nccwpck_require__(87);
 const { spawn } = __nccwpck_require__(129);
 
 const run = (cmd, onError) => {
-    const c = spawn(cmd);
+    const c = spawn(cmd, { shell: true });
     c.stdout.on("data", data => { console.log(`[${c.pid}] stdout: ${data}`); });
     c.stderr.on("data", data => { console.log(`[${c.pid}] stderr: ${data}`); });
-    c.on('error', (error) => { onError(`[${c.pid}] err: ${error.message}`) });
+    c.on('error', (error) => { onError(`[${c.pid || "no pid"}] err: ${error.message}`) });
+    c.on('exit', (code) => {
+        if (!code) return
+        onError(`[${c.pid || "no pid"}] exitted with code ${code}`)
+    });
 }
 
 // in case they pass commands "array-formatted": [c1, c2, ...]
 const reBrackets = (new RegExp(`\[*\]*`)).compile();
-const commands = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('commands');
+const commands = core.getInput('commands');
 const cmds = commands.replace(reBrackets, "").split(",").map((s) => s.trim());
 for (const cmd of cmds) {
-    run(cmd, _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed);
+    run(cmd, core.setFailed);
 }
 
 })();

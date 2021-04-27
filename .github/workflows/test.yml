@@ -13,4 +13,4 @@ jobs:
         id: hello
         uses: bewica/parallel-commands@v0.4
         with:
-          commands: "echo hello, sleep 1; echo by"
+          commands: "echo hello, sleep 3; echo bye, sleep 1; echo exiting; exit 123"
