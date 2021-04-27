@@ -12,4 +12,4 @@ This action runs multiple commands (with arguments) and returns the first error 
 
 uses: actions/parallel-commands@v0.1
 with:
-  commands: 'echo hello', 'sleep 1; echo by'
+  commands: "echo hello, sleep 1; echo by"
