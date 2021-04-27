@@ -1,0 +1,9 @@
+name: "Parallel commands"
+description: "Run a bunch of commands in parallel, return the first error encountered"
+inputs:
+  commands:
+    description: "A comma-separated list of commands (and their arguments)"
+    required: true
+runs:
+  using: "node12"
+  main: "index.js"
