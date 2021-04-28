@@ -469,8 +469,8 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(87);
 const { spawn } = __nccwpck_require__(129);
 
-const run = (cmd, onError) => {
-    const c = spawn(cmd, { shell: true });
+const run = (cmd, cwd, onError) => {
+    const c = spawn(cmd, { shell: true, cwd: cwd });
     c.stdout.on("data", data => { console.log(`[${c.pid}] stdout: ${data}`); });
     c.stderr.on("data", data => { console.log(`[${c.pid}] stderr: ${data}`); });
     c.on('error', (error) => { onError(`[${c.pid || "no pid"}] err: ${error.message}`) });
@@ -481,12 +481,13 @@ const run = (cmd, onError) => {
 }
 
 const commands = core.getInput('commands');
+const cwd = core.getInput('working-directory') || undefined;
 const cmds = commands
     .trim().replace(/^\[+/, "").replace(/\]+$/, "")
     .split(",")
     .map((s) => s.trim()).filter((s) => s)
 for (const cmd of cmds) {
-    run(cmd, core.setFailed);
+    run(cmd, cwd, core.setFailed);
 }
 
 })();
