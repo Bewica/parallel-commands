@@ -10,7 +10,7 @@ jobs:
     steps:
       # - uses: actions/checkout@v2
       - name: Parallel command tests
-        uses: bewica/parallel-commands@v0.7.1
+        uses: bewica/parallel-commands@v0.8.0
         with:
           commands: |
             echo hello \
@@ -19,3 +19,15 @@ jobs:
             sleep 1; echo exiting; exit 0,
             mkdir -p test/apple; cd test/apple; echo $PWD,
             mkdir -p test2/pear; cd test2/pear; echo $PWD,
+
+      - name: Parallel command tests with working-directory
+        uses: bewica/parallel-commands@v0.8.0
+        with:
+          working-directory: test2
+          commands: |
+            echo hello \
+              this is a test from $PWD,
+            sleep 3; echo bye,
+            sleep 1; echo exiting; exit 0,
+            mkdir -p test3/apple; cd test3/apple; echo $PWD,
+            mkdir -p test4/pear; cd test4/pear; echo $PWD,
