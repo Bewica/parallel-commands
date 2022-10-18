@@ -8,17 +8,17 @@ const run = (
 ): void => {
   const c = spawn(cmd, {shell: true, cwd})
   c.stdout.on('data', data => {
-    console.log(`[${c.pid}] stdout: ${data}`)
+    console.log(`[${c.pid}] stdout: ${data}`.trim())
   })
   c.stderr.on('data', data => {
-    console.log(`[${c.pid}] stderr: ${data}`)
+    console.log(`[${c.pid}] stderr: ${data}`.trim())
   })
   c.on('error', error => {
-    onError(`[${c.pid || 'no pid'}] err: ${error.message}`)
+    onError(`[${c.pid || 'no pid'}] err: ${error.message}`.trim())
   })
   c.on('exit', code => {
     if (!code) return
-    onError(`[${c.pid || 'no pid'}] exited with code ${code}`)
+    onError(`[${c.pid || 'no pid'}] exited with code ${code}`.trim())
   })
 }
 
