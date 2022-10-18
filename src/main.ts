@@ -7,6 +7,7 @@ const run = (
   onError: (message: string | Error) => void
 ): void => {
   const c = spawn(cmd, {shell: true, cwd})
+  console.log(`cmd: ${cmd}`)
   c.stdout.on('data', data => {
     console.log(`[${c.pid}] stdout: ${data}`.trim())
   })
@@ -24,7 +25,7 @@ const run = (
 
 const commands: string[] = core.getMultilineInput('commands')
 
-console.log(commands)
+console.log(`commands: ${commands}`)
 
 const cwd = core.getInput('working-directory') || undefined
 const cmds = commands.map(s => s.trim()).filter(s => s.length > 0)
