@@ -8,21 +8,21 @@ const run = (
 ): void => {
   const c = spawn(cmd, {shell: true, cwd})
   c.stdout.on('data', data => {
-    console.log(`[${c.pid}] stdout: ${data}`.trim())
+    console.log(`[${c.pid}] stdout: ${data}`)
   })
   c.stderr.on('data', data => {
-    console.log(`[${c.pid}] stderr: ${data}`.trim())
+    console.log(`[${c.pid}] stderr: ${data}`)
   })
   c.on('error', error => {
-    onError(`[${c.pid || 'no pid'}] err: ${error.message}`.trim())
+    onError(`[${c.pid || 'no pid'}] err: ${error.message}`)
   })
   c.on('exit', code => {
     if (!code) return
-    onError(`[${c.pid || 'no pid'}] exitted with code ${code}`.trim())
+    onError(`[${c.pid || 'no pid'}] exited with code ${code}`)
   })
 }
 
-const commands: string = core.getInput('commands')
+const commands: string = core.getInput('commands', {required: true})
 const cwd = core.getInput('working-directory') || undefined
 const cmds = commands
   .trim()
@@ -33,6 +33,5 @@ const cmds = commands
   .filter(s => s)
 
 for (const cmd of cmds) {
-  console.log('command', cmd)
   run(cmd, cwd, core.setFailed)
 }

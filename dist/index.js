@@ -35,21 +35,21 @@ const child_process_1 = __nccwpck_require__(129);
 const run = (cmd, cwd, onError) => {
     const c = (0, child_process_1.spawn)(cmd, { shell: true, cwd });
     c.stdout.on('data', data => {
-        console.log(`[${c.pid}] stdout: ${data}`.trim());
+        console.log(`[${c.pid}] stdout: ${data}`);
     });
     c.stderr.on('data', data => {
-        console.log(`[${c.pid}] stderr: ${data}`.trim());
+        console.log(`[${c.pid}] stderr: ${data}`);
     });
     c.on('error', error => {
-        onError(`[${c.pid || 'no pid'}] err: ${error.message}`.trim());
+        onError(`[${c.pid || 'no pid'}] err: ${error.message}`);
     });
     c.on('exit', code => {
         if (!code)
             return;
-        onError(`[${c.pid || 'no pid'}] exitted with code ${code}`.trim());
+        onError(`[${c.pid || 'no pid'}] exited with code ${code}`);
     });
 };
-const commands = core.getInput('commands');
+const commands = core.getInput('commands', { required: true });
 const cwd = core.getInput('working-directory') || undefined;
 const cmds = commands
     .trim()
@@ -59,7 +59,6 @@ const cmds = commands
     .map(s => s.trim())
     .filter(s => s);
 for (const cmd of cmds) {
-    console.log('command', cmd);
     run(cmd, cwd, core.setFailed);
 }
 
