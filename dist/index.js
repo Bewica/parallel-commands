@@ -35,18 +35,18 @@ const child_process_1 = __nccwpck_require__(129);
 const run = (cmd, cwd, onError) => {
     const c = (0, child_process_1.spawn)(cmd, { shell: true, cwd });
     c.stdout.on('data', data => {
-        console.log(`[${c.pid}] stdout: ${data}`);
+        console.log(`[${c.pid}] stdout: ${data}`.trim());
     });
     c.stderr.on('data', data => {
-        console.log(`[${c.pid}] stderr: ${data}`);
+        console.log(`[${c.pid}] stderr: ${data}`.trim());
     });
     c.on('error', error => {
-        onError(`[${c.pid || 'no pid'}] err: ${error.message}`);
+        onError(`[${c.pid || 'no pid'}] err: ${error.message}`.trim());
     });
     c.on('exit', code => {
         if (!code)
             return;
-        onError(`[${c.pid || 'no pid'}] exited with code ${code}`);
+        onError(`[${c.pid || 'no pid'}] exited with code ${code}`.trim());
     });
 };
 const commands = core.getInput('commands', { required: true });
