@@ -24,3 +24,7 @@ jobs:
 
             sleep 2;
             echo good evening
+
+            echo good morning
+            sleep 4
+            echo good night
