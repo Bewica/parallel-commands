@@ -8,9 +8,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
       - name: Hello world action step
         id: hello
-        uses: bewica/parallel-commands@v0.4
+        uses: ./
         with:
           commands: "echo hello, sleep 3; echo bye, sleep 1; echo exiting; exit 123"
