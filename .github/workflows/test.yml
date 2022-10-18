@@ -14,4 +14,9 @@ jobs:
         id: hello
         uses: ./
         with:
-          commands: "echo hello, sleep 3; echo bye, sleep 1; echo exiting"
+          commands: |
+            echo hello
+            sleep 3; \
+              echo bye
+            sleep 1; \
+              echo exiting"
