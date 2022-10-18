@@ -23,6 +23,7 @@ const run = (
 }
 
 const commands: string = core.getInput('commands')
+console.log(`commands: ${commands}`)
 const cwd = core.getInput('working-directory') || undefined
 const cmds = commands
   .trim()
