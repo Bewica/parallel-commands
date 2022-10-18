@@ -15,7 +15,7 @@ jobs:
         uses: ./
         with:
           commands: |
-            echo hello \
+            echo hello; \
             sleep 3; \
             echo bye,
             sleep 1; \
