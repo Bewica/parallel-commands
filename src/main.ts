@@ -28,7 +28,7 @@ const cmds = commands
   .trim()
   .replace(/^\[+/, '')
   .replace(/\]+$/, '')
-  .split('\n')
+  .split('\n\n')
   .map(s => s.trim())
   .filter(s => s)
 
