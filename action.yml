@@ -8,5 +8,5 @@ inputs:
     description: The root directory to execute commands from
     required: false
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
