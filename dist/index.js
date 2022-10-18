@@ -50,7 +50,6 @@ const run = (cmd, cwd, onError) => {
     });
 };
 const commands = core.getInput('commands');
-console.log('command', commands);
 const cwd = core.getInput('working-directory') || undefined;
 const cmds = commands
     .trim()
@@ -60,6 +59,7 @@ const cmds = commands
     .map(s => s.trim())
     .filter(s => s);
 for (const cmd of cmds) {
+    console.log('command', cmd);
     run(cmd, cwd, core.setFailed);
 }
 

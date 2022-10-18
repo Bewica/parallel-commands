@@ -33,6 +33,6 @@ const cmds = commands
   .filter(s => s)
 
 for (const cmd of cmds) {
-console.log('command', cmd)
+  console.log('command', cmd)
   run(cmd, cwd, core.setFailed)
 }
