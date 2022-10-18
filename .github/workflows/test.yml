@@ -17,6 +17,6 @@ jobs:
           commands: |
             echo hello
             sleep 3; \
-              echo bye
+            echo bye
             sleep 1; \
-              echo exiting"
+            echo exiting"

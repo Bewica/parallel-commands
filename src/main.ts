@@ -23,6 +23,9 @@ const run = (
 }
 
 const commands: string[] = core.getMultilineInput('commands')
+
+console.log(commands)
+
 const cwd = core.getInput('working-directory') || undefined
 const cmds = commands.map(s => s.trim()).filter(s => s.length > 0)
 
