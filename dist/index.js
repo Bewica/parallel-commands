@@ -49,15 +49,10 @@ const run = (cmd, cwd, onError) => {
         onError(`[${c.pid || 'no pid'}] exitted with code ${code}`.trim());
     });
 };
-const commands = core.getInput('commands');
+const commands = core.getMultilineInput('commands');
+core.setOutput('command', commands);
 const cwd = core.getInput('working-directory') || undefined;
-const cmds = commands
-    .trim()
-    .replace(/^\[+/, '')
-    .replace(/\]+$/, '')
-    .split(',')
-    .map(s => s.trim())
-    .filter(s => s);
+const cmds = commands.map(s => s.trim()).filter(s => s);
 for (const cmd of cmds) {
     run(cmd, cwd, core.setFailed);
 }
