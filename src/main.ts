@@ -23,7 +23,6 @@ const run = (
 }
 
 const commands: string = core.getInput('commands')
-console.log('command', commands)
 const cwd = core.getInput('working-directory') || undefined
 const cmds = commands
   .trim()
@@ -34,5 +33,6 @@ const cmds = commands
   .filter(s => s)
 
 for (const cmd of cmds) {
+console.log('command', cmd)
   run(cmd, cwd, core.setFailed)
 }
