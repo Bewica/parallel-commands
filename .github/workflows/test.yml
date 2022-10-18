@@ -21,3 +21,6 @@ jobs:
 
             sleep 1; \
             echo exiting
+
+            sleep 2;
+            echo good evening
