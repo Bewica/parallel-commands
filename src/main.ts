@@ -22,10 +22,16 @@ const run = (
   })
 }
 
-const commands: string[] = core.getMultilineInput('commands')
-core.setOutput('command', commands)
+const commands: string = core.getInput('commands')
+console.log('command', commands)
 const cwd = core.getInput('working-directory') || undefined
-const cmds = commands.map(s => s.trim()).filter(s => s)
+const cmds = commands
+  .trim()
+  .replace(/^\[+/, '')
+  .replace(/\]+$/, '')
+  .split('\n')
+  .map(s => s.trim())
+  .filter(s => s)
 
 for (const cmd of cmds) {
   run(cmd, cwd, core.setFailed)
