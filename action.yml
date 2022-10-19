@@ -2,11 +2,11 @@ name: Parallel commands
 description: Run a bunch of commands in parallel, return the first error encountered
 inputs:
   commands:
-    description: A comma-separated list of commands (and their arguments)
+    description: A list of commands (and their arguments) separated by empty line (`\n\n`)
     required: true
   working-directory:
     description: The root directory to execute commands from
     required: false
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
